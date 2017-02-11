@@ -1,10 +1,12 @@
 object Main {
   def main(args: Array[String]): Unit = {
-    val tree = Node(30, Some(Node(12, Some(Node(7, None, None)), Some(Node(11, None, None)))), Some(Node(41, None, None)))
+    val tree = Node(
+      30,
+      Some(Node(12, Some(Node(7, None, None)), Some(Node(11, None, None)))),
+      Some(Node(41, None, None)))
+    println(Node.format(tree))
     depthFirst[Int](println)(tree)
-    // breadthFirst[Int](println)(tree)
-    val xs = breadthFirst(tree).toIterator
-    xs foreach println
+    breadthFirst(tree).toIterator foreach println
   }
 
   private def depthFirst[A](f: A => Unit)(node: Node[A]): Unit = {
