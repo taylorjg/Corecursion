@@ -1,12 +1,12 @@
-case class Node[A](value: A, left: Option[Node[A]], right: Option[Node[A]])
+case class Tree[A](value: A, left: Option[Tree[A]], right: Option[Tree[A]])
 
-object Node {
+object Tree {
 
-  def format[A](node: Node[A]): String = {
+  def format[A](node: Tree[A]): String = {
     formatLevel(node, 0)
   }
 
-  private def formatLevel[A](node: Node[A], level: Int): String = {
+  private def formatLevel[A](node: Tree[A], level: Int): String = {
     val indent = List.fill(level * 2)(' ').mkString("")
     val line1 = node.value.toString
     val line2 = node.left match {
