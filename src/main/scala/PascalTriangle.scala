@@ -1,6 +1,7 @@
 object PascalTriangle {
+
   def generate: Stream[Seq[Int]] = {
-    def helper(prev: Seq[Int]): Stream[Seq[Int]] = {
+    def worker(prev: Seq[Int]): Stream[Seq[Int]] = {
       val next = prev match {
         case Seq() => Seq(1)
         case Seq(1) => Seq(1, 1)
@@ -9,8 +10,20 @@ object PascalTriangle {
           val middleValues = middlePairs map (_.sum)
           Seq(1) ++ middleValues ++ Seq(1)
       }
-      next #:: helper(next)
+      next #:: worker(next)
     }
-    helper(Seq())
+    worker(Seq())
+  }
+
+  def generate2: Stream[Seq[Int]] = {
+    def worker(n: Int): Stream[Seq[Int]] = {
+      val reversedRow = (1 to n).foldLeft(List(1))((xs, k) => {
+        val prev = xs.head
+        val x = prev * (n + 1 - k) / k
+        x :: xs
+      })
+      reversedRow.reverse #:: worker(n + 1)
+    }
+    worker(0)
   }
 }
