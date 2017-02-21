@@ -16,14 +16,10 @@ object PascalTriangle {
   }
 
   def generate2: Stream[Seq[Int]] = {
-    def worker(n: Int): Stream[Seq[Int]] = {
-      val reversedRow = (1 to n).foldLeft(List(1))((xs, k) => {
-        val prev = xs.head
-        val x = prev * (n + 1 - k) / k
-        x :: xs
-      })
-      reversedRow.reverse #:: worker(n + 1)
-    }
+    def worker(n: Int): Stream[Seq[Int]] =
+      (1 to n).foldLeft(List(1))((xs, k) => {
+        xs.head * (n + 1 - k) / k :: xs
+      }) #:: worker(n + 1)
     worker(0)
   }
 }
